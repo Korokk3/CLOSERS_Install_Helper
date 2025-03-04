@@ -78,16 +78,16 @@ class Installer:
             return False
     
     def find_launcher(self):
-        if os.path.exists(self.get_path("CLOSERS.exe")):
-            return self.run_launcher()
-            
-        if not os.path.exists(self.get_path("LAUNCHER.exe")):
-            self.logger("클로저스 런처 파일을 찾을 수 없습니다.")
-            return
-            
         if not os.path.exists("luadec.exe"):
             self.logger("luadec.exe 파일을 찾을 수 없습니다.")
             return
+        
+        if not os.path.exists(self.get_path("LAUNCHER.exe")):
+            self.logger("클로저스 런처 파일을 찾을 수 없습니다.")
+            return
+        
+        if os.path.exists(self.get_path("CLOSERS.exe")):
+            return self.run_launcher()
         
         self.logger("클로저스 실행기 구동을 준비중입니다.")
         self.write_version(True)
