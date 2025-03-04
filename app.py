@@ -84,6 +84,10 @@ class Installer:
         if not os.path.exists(self.get_path("LAUNCHER.exe")):
             self.logger("클로저스 런처 파일을 찾을 수 없습니다.")
             return
+            
+        if not os.path.exists("luadec.exe"):
+            self.logger("luadec.exe 파일을 찾을 수 없습니다.")
+            return
         
         self.logger("클로저스 실행기 구동을 준비중입니다.")
         self.write_version(True)
@@ -211,6 +215,8 @@ class Installer:
         else:
             f.write(f"[Ver]\nMVer={self.VERSION_MVER}\nTime={self.VERSION_TIME}\nCrc=0\nPATCH=1")
         f.close()
-        
-i = Installer(askdirectory())
-i.find_launcher()
+
+if __name__ == "__main__":
+    i = Installer(askdirectory())
+    i.find_launcher()
+    os.system("pause")
