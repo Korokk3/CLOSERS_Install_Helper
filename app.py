@@ -202,7 +202,11 @@ class Installer:
         stdout, stderr = out.communicate()
         
         if not stdout is None:
-            data = stdout.decode("utf-8")
+            if isinstance(stdout, bytes):
+                try:
+                    data = stdout.decode("utf-8")
+                except UnicodeDecodeError:
+                    data = stdout.decode("cp949")
             data = data[data.find("CODE_TABLE = {") + 13 : data.rfind("DELETE_CODE_TABLE")]
             data = data.replace("{", "[").replace("}", "]")
             return json.loads(data)
